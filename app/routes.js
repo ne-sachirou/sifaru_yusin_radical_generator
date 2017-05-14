@@ -18,7 +18,7 @@ export default function createRoutes(store) {
 
   return [
     {
-      path: '/',
+      path: '/sifaru_yusin_radical_generator/',
       name: 'singleRadical',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
