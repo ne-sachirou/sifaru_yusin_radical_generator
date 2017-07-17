@@ -19,15 +19,17 @@ export default function createRoutes(store) {
   return [
     {
       path: '/sifaru_yusin_radical_generator/',
-      name: 'singleRadical',
+      name: 'sifaruDeku',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/SingleRadical'),
+          import('containers/SifaruDeku/reducer'),
+          import('containers/SifaruDeku'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, component]) => {
+          injectReducer('sifaruDeku', reducer.default);
           renderRoute(component);
         });
 
