@@ -9,13 +9,13 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { kekuriaDeku } from './actions';
-import makeSelectSifaruDeku, { makeSelectDeku } from './selectors';
+import makeSelectSifaruDeku, { makeSelectDekuga } from './selectors';
 import messages from './messages';
 import KekuriaButton from './KekuriaButton';
 
 export class SifaruDeku extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
-    if (!this.props.deku) this.props.onClickKekuria();
+    if (this.props.dekuga.isEmpty()) this.props.onClickKekuria();
   }
 
   render() {
@@ -27,7 +27,7 @@ export class SifaruDeku extends React.Component { // eslint-disable-line react/p
             <FormattedMessage {...messages.kekuria} />
           </KekuriaButton>
         </div>
-        <div>{this.props.deku}</div>
+        {this.props.dekuga.map((deku) => <div key={deku}>{deku}</div>)}
       </div>
     );
   }
@@ -36,12 +36,12 @@ export class SifaruDeku extends React.Component { // eslint-disable-line react/p
 SifaruDeku.propTypes = {
   dispatch: PropTypes.func.isRequired,
   onClickKekuria: React.PropTypes.func,
-  deku: React.PropTypes.string,
+  dekuga: React.PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   SifaruDeku: makeSelectSifaruDeku(),
-  deku: makeSelectDeku(),
+  dekuga: makeSelectDekuga(),
 });
 
 function mapDispatchToProps(dispatch) {

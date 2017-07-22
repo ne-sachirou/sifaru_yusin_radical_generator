@@ -18,7 +18,14 @@ function sifaruDekuReducer(state = initialState, action) {
     case DEFAULT_ACTION:
       return state;
     case KEKURIA_DEKU:
-      return state.set('deku', Deku.kekuria().toString());
+      let dekuga = state.get('dekuga', fromJS([]));
+      while (true) {
+        const deku = Deku.kekuria().toString();
+        if (dekuga.contains(deku)) continue;
+        dekuga = dekuga.unshift(deku).slice(0, 20);
+        break;
+      }
+      return state.set('dekuga', dekuga);
     default:
       return state;
   }

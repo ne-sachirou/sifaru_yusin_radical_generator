@@ -1,3 +1,4 @@
+import { fromJS } from 'immutable';
 import { createSelector } from 'reselect';
 
 /**
@@ -9,9 +10,9 @@ const selectSifaruDekuDomain = () => (state) => state.get('sifaruDeku');
  * Other specific selectors
  */
 
-const makeSelectDeku = () => createSelector(
+const makeSelectDekuga = () => createSelector(
   selectSifaruDekuDomain(),
-  (substate) => substate.get('deku')
+  (substate) => substate.get('dekuga', fromJS([]))
 );
 
 /**
@@ -26,5 +27,5 @@ const makeSelectSifaruDeku = () => createSelector(
 export default makeSelectSifaruDeku;
 export {
   selectSifaruDekuDomain,
-  makeSelectDeku,
+  makeSelectDekuga,
 };
