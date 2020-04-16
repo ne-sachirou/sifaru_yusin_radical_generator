@@ -1,7 +1,7 @@
 {
   "name": "sifaru_yusin_radical_generator",
   "version": "1.0.0",
-  "description": "白色語語根ジェネレーター (sifarU yUsin ru dEku kekurIa)",
+  "description": "白色語語根生成器 (sifarU yUsin ru dEku kekurIa)",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/ne-sachirou/sifaru_yusin_radical_generator#readme",
   "devDependencies": {
+    "antlr4": "^4.8.0",
     "npm-check-updates": "^4.1.2",
     "prettier": "^2.0.4",
     "transcrypt-loader": "^1.0.2",

@@ -1,4 +1,4 @@
-"""白色語語根ジェネレーター (sifarU yUsin ru dEku kekurIa)."""
+"""白色語語根生成器 (sifarU yUsin ru dEku kekurIa)."""
 from sifaru_yusin.deku import kekure
 import typing as t
 

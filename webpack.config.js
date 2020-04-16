@@ -3,6 +3,7 @@
 module.exports = {
   devtool: "inline-source-map",
   entry: "./main.py",
+  // mode: "production",
   mode: "development",
   module: {
     rules: [
@@ -13,4 +14,6 @@ module.exports = {
       },
     ],
   },
+  node: { module: "empty", net: "empty", fs: "empty" },
+  target: "web",
 };

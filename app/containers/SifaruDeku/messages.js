@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'app.containers.SifaruDeku.header',
-    defaultMessage: '白色語語根ジェネレーター (sifarU yUsin ru dEku kekurIa)',
+    defaultMessage: '白色語語根生成器 (sifarU yUsin ru dEku kekurIa)',
   },
   kekuria: {
     id: 'app.containers.SifaruDeku.kekuria',
