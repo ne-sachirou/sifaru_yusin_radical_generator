@@ -1,0 +1,21 @@
+---
+name: test
+
+"on": [pull_request, push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.8"
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+      - uses: actions/checkout@v2
+      - run: |
+          set -eux
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+          export PATH=$HOME/.poetry/bin:$PATH
+          make setup test
