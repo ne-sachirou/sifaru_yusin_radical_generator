@@ -1,5 +1,15 @@
 """kekurE dEku."""
-import random
+from sifaru_yusin.Kekuria import Kekuria
+from sifaru_yusin.RuleDefinitions import (
+    RuleDefinitions,
+    Rule,
+    ChoiceRuleItem,
+    ChoiceRule,
+    DifferenceRule,
+    ReferenceRule,
+    SequenceRule,
+    StringRule,
+)
 import typing as t
 
 __pragma__(  # noqa: F821
@@ -19,161 +29,11 @@ DekuRuleParser: t.Any = 0  # __:skip
 antlr4: t.Any = 0  # __:skip
 
 
-class Kekuria:
-    def __init__(self, rule_definitions: RuleDefinitions):
-        self.generated_words = []
-        self.references = []
-        self.rule_definitions = rule_definitions
-
-    def get_reference(self, rule_name: str, position: int) -> str:
-        return filter(lambda reference: reference[0] == rule_name, self.references)[
-            position
-        ][1]
-
-    def get_rule(self, rule_name: str) -> Rule:
-        return self.rule_definitions.definitions[rule_name]
-
-    def kekure(self, rule_name: str) -> str:
-        word = self.rule_definitions.kekure(rule_name, self)
-        # self.references.append((rule_name, word))
-        return word
-
-    def push_reference(self, rule_name: str, word: str) -> None:
-        self.references.append((rule_name, word))
-
-
-class RuleDefinitions:
-    """
-    A set of dEku rule definitions.
-
-    RuleDefinitions should not have state.
-    """
-
-    def __init__(self):
-        self.definitions = {}
-
-    def define(self, rule_name, rule) -> None:
-        self.definitions[rule_name] = rule
-
-    def kekure(self, rule_name: str, kekuria: Kekuria) -> str:
-        return self.definitions[rule_name].kekure(kekuria)
-
-
-class Rule:
-    """
-    dEku Rule interface.
-
-    Rule should not have state.
-    """
-
-    def kekure(self, kekuria: Kekuria) -> str:
-        """Generate a word."""
-        raise NotImplementedError("Rule#kekure should be implemented in the sub class.")
-
-
-class ChoiceRuleItem:
-    """An item of a ChoiceRule."""
-
-    def __init__(self, rule: Rule, weight: int):
-        self.rule = rule
-        self.weight = weight
-
-
-class ChoiceRule(Rule):
-    def __init__(self, items: [ChoiceRuleItem]):
-        self.items = items
-
-    def kekure(self, kekuria: Kekuria) -> str:
-        gauge = sum(map(lambda item: item.weight, self.items)) * random.random()
-        meter = 0
-        for item in self.items:
-            meter = meter + item.weight
-            if meter > gauge:
-                return item.rule.kekure(kekuria)
-
-
-class DifferenceRule(Rule):
-    def __init__(self, lhs: Rule, rhs: Rule):
-        self.lhs = lhs
-        self.rhs = rhs
-
-    def kekure(self, kekuria: Kekuria) -> str:
-        if isinstance(self.lhs, tuple) and self.lhs[0] == "WordName":
-            lhs = kekuria.get_rule(self.lhs[1])
-        else:
-            lhs = self.lhs
-        if not isinstance(lhs, ChoiceRule):
-            raise Exception("Can't get a difference except from a ChoiceRule.")
-        if isinstance(self.rhs, tuple) and self.rhs[0] == "WordName":
-            rhs = kekuria.get_rule(self.rhs[1])
-        elif isinstance(self.rhs, ReferenceRule):
-            rhs = StringRule(self.rhs.kekure(kekuria))
-        else:
-            rhs = self.rhs
-        if isinstance(rhs, ChoiceRule):
-            rhs_values = []
-            for item in rhs.items:
-                if not isinstance(item.rule, StringRule):
-                    raise Exception(
-                        "Can't get a difference by a ChoiceRule of not StringRule-s."
-                    )
-                rhs_values.append(item.rule.value)
-        elif isinstance(rhs, StringRule):
-            rhs_values = [rhs.value]
-        else:
-            raise Exception(
-                "Can't get a difference except by a ChoiceRule or a StringRule."
-            )
-        new_items = []
-        for item in lhs.items:
-            if not isinstance(item.rule, StringRule):
-                raise Exception(
-                    "Can't get a difference except from a ChoiceRule of StringRule-s."
-                )
-            if item.rule.value not in rhs_values:
-                new_items.append(item)
-        word = ChoiceRule(new_items).kekure(kekuria)
-        if isinstance(self.lhs, tuple) and self.lhs[0] == "WordName":
-            kekuria.push_reference(self.lhs[1], word)
-        return word
-
-
-class ReferenceRule(Rule):
-    def __init__(self, rule_name: str, position: int):
-        self.rule_name = rule_name
-        self.position = position
-
-    def kekure(self, kekuria: Kekuria) -> str:
-        return kekuria.get_reference(self.rule_name, self.position)
-
-
-class SequenceRule(Rule):
-    def __init__(self, children: [Rule]):
-        self.children = children
-
-    def kekure(self, kekuria: Kekuria) -> str:
-        words = []
-        for child in self.children:
-            if isinstance(child, Rule):
-                words.append(child.kekure(kekuria))
-            elif isinstance(child, tuple) and child[0] == "WordName":
-                rule_name = child[1]
-                word = kekuria.kekure(rule_name)
-                kekuria.push_reference(rule_name, word)
-                words.append(word)
-        return "".join(words)
-
-
-class StringRule(Rule):
-    def __init__(self, value: str):
-        self.value = value
-
-    def kekure(self, kekuria: Kekuria) -> str:
-        return self.value
-
-
 class Visitor:
+    """ANTLR4 custom tree visitor."""
+
     def visitChildren(self, context):
+        """Handle a callback when the visitor visit a non terminal node."""
         rule_name = context.parser.ruleNames[context.ruleIndex]
         if rule_name == "root":
             return self.__visit_root(context)
@@ -199,6 +59,7 @@ class Visitor:
             raise Exception("Unknown rule: {}".format(rule_name))
 
     def visitTerminal(self, context):
+        """Handle a callback when the visitor visit a terminal node."""
         symbolic_name = context.parentCtx.parser.symbolicNames[context.symbol["type"]]
         if symbolic_name == "CloseArguments":
             return None
@@ -306,27 +167,37 @@ class Visitor:
 
 
 class DekuRuleListener_py:
+    """ANTLR4 tree listener."""
+
     def __init__(self):
+        """Initialize a listener."""
         self.original = __new__(DekuRuleListener())  # noqa: F821
 
     def visitTerminal(self, node):
+        """Handle a callback when the listener traverse a terminal node."""
         return self.original.visitTerminal(node)
 
     def visitErrorNode(self, node):
+        """Handle a callback when the listener traverse an error node."""
         return self.original.visitErrorNode(node)
 
     def enterEveryRule(self, node):
+        """Handle a callback when the listener enter a non terminal rule."""
         return self.original.enterEveryRule(node)
 
     def exitEveryRule(self, node):
+        """Handle a callback when the listener exit from a non terminal rule."""
         return self.original.exitEveryRule(node)
 
 
 class DekuRulePrinter(DekuRuleListener_py):
+    """ANTLR4 custom tree listener."""
+
     pass
 
 
 def parse_deku_rule(deku_rule: str) -> RuleDefinitions:
+    """Parse a given dEku rule."""
     chars = __new__(antlr4.InputStream(deku_rule))  # noqa: F821
     lexer = __new__(DekuRuleLexer(chars))  # noqa: F821
     tokens = __new__(antlr4.CommonTokenStream(lexer))  # noqa: F821
@@ -335,7 +206,6 @@ def parse_deku_rule(deku_rule: str) -> RuleDefinitions:
     tree = parser.root()
     antlr4.tree.ParseTreeWalker.DEFAULT.walk(DekuRulePrinter(), tree)
     rule_definitions = tree.accept(Visitor())
-    window.rule_definitions = rule_definitions
     return rule_definitions
 
 
