@@ -29,12 +29,21 @@ DekuRuleListener.prototype.exitChoiceWord = function(ctx) {
 };
 
 
-// Enter a parse tree produced by DekuRuleParser#differenceOperand.
-DekuRuleListener.prototype.enterDifferenceOperand = function(ctx) {
+// Enter a parse tree produced by DekuRuleParser#differenceLhs.
+DekuRuleListener.prototype.enterDifferenceLhs = function(ctx) {
 };
 
-// Exit a parse tree produced by DekuRuleParser#differenceOperand.
-DekuRuleListener.prototype.exitDifferenceOperand = function(ctx) {
+// Exit a parse tree produced by DekuRuleParser#differenceLhs.
+DekuRuleListener.prototype.exitDifferenceLhs = function(ctx) {
+};
+
+
+// Enter a parse tree produced by DekuRuleParser#differenceRhs.
+DekuRuleListener.prototype.enterDifferenceRhs = function(ctx) {
+};
+
+// Exit a parse tree produced by DekuRuleParser#differenceRhs.
+DekuRuleListener.prototype.exitDifferenceRhs = function(ctx) {
 };
 
 
@@ -53,15 +62,6 @@ DekuRuleListener.prototype.enterElementWord = function(ctx) {
 
 // Exit a parse tree produced by DekuRuleParser#elementWord.
 DekuRuleListener.prototype.exitElementWord = function(ctx) {
-};
-
-
-// Enter a parse tree produced by DekuRuleParser#wordDefinition.
-DekuRuleListener.prototype.enterWordDefinition = function(ctx) {
-};
-
-// Exit a parse tree produced by DekuRuleParser#wordDefinition.
-DekuRuleListener.prototype.exitWordDefinition = function(ctx) {
 };
 
 
@@ -89,6 +89,15 @@ DekuRuleListener.prototype.enterWord = function(ctx) {
 
 // Exit a parse tree produced by DekuRuleParser#word.
 DekuRuleListener.prototype.exitWord = function(ctx) {
+};
+
+
+// Enter a parse tree produced by DekuRuleParser#wordDefinition.
+DekuRuleListener.prototype.enterWordDefinition = function(ctx) {
+};
+
+// Exit a parse tree produced by DekuRuleParser#wordDefinition.
+DekuRuleListener.prototype.exitWordDefinition = function(ctx) {
 };
 
 

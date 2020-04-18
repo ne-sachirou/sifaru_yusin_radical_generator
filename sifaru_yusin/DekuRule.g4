@@ -8,15 +8,19 @@ choiceWord
     : (sequenceWord PositiveInteger OrOperator) + sequenceWord PositiveInteger
     ;
 
-differenceOperand
+differenceLhs
     : OpenParenthesis choiceWord CloseParenthesis
-    | String
+    | WordName
+    ;
+
+differenceRhs
+    : String
     | WordName
     | referenceWord
     ;
 
 differenceWord
-    : differenceOperand DifferenceOperator differenceOperand
+    : differenceLhs DifferenceOperator differenceRhs
     ;
 
 elementWord
@@ -26,12 +30,8 @@ elementWord
     | referenceWord
     ;
 
-wordDefinition
-    : WordName DefineOperator word DefinitionTerminator
-    ;
-
 referenceWord
-    : ReferenceCall OpenArguments word PositiveInteger CloseArguments
+    : ReferenceCall OpenArguments WordName PositiveInteger CloseArguments
     ;
 
 sequenceWord
@@ -43,6 +43,10 @@ word
     | differenceWord
     | elementWord
     | sequenceWord
+    ;
+
+wordDefinition
+    : WordName DefineOperator word DefinitionTerminator
     ;
 
 CloseArguments : ')' ;
