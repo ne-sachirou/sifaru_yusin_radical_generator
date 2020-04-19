@@ -5,12 +5,12 @@ help:
 .PHONY: build
 build: ## Build stuffs.
 	(cd sifaru_yusin && java -cp "$(shell pwd)/sifaru_yusin/antlr-4.8-complete.jar:$$CLASSPATH" org.antlr.v4.Tool -Dlanguage=JavaScript DekuRule.g4)
-	poetry run npx webpack
+	poetry run npx webpack --config webpack.prod.js
 	mv dist/* docs
 
 .PHONY: clean
 clean: ## Clean built stuffs.
-	rm -v sifaru_yusin/DekuRule*.js sifaru_yusin/*.interp sifaru_yusin/*.tokens
+	rm -fv sifaru_yusin/DekuRule*.js sifaru_yusin/*.interp sifaru_yusin/*.tokens
 	rm -rfv __target__
 
 .PHONY: format
@@ -30,6 +30,7 @@ setup: ## Setup a development environment.
 
 .PHONY: start
 start: ## Start a development server.
+	# poetry run npx webpack --config webpack.dev.js
 	(cd docs && python -m http.server 5000)
 
 .PHONY: test

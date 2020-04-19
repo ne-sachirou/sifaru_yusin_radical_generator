@@ -1,9 +1,7 @@
 "use static";
 
 module.exports = {
-  devtool: "inline-source-map",
   entry: "./main.py",
-  mode: "production",
   module: {
     rules: [
       {
