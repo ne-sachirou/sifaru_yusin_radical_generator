@@ -3,8 +3,7 @@
 module.exports = {
   devtool: "inline-source-map",
   entry: "./main.py",
-  // mode: "production",
-  mode: "development",
+  mode: "production",
   module: {
     rules: [
       {
