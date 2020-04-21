@@ -34,6 +34,8 @@ def on_dom_content_loaded(event):
     document.getElementById("kekurE_dEku").addEventListener(
         "click", on_click_kekure_deku
     )
+    for i in range(0, MAX_DEKUGA_LENGTH):
+        on_click_kekure_deku(None)
 
 
 if __name__ == "__main__":
