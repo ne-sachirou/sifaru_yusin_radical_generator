@@ -10,12 +10,13 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: "3.8"
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "13.x"
       - uses: actions/checkout@v2
       - run: |
-          set -eux
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-          export PATH=$HOME/.poetry/bin:$PATH
-          make setup test
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ne-sachirou --password-stdin
+          docker-compose pull web || true
+          ./tasks.py build test
+          docker-compose push web
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          DOCKER_BUILDKIT: 1
+
