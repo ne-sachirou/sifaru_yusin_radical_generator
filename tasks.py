@@ -130,7 +130,7 @@ def build():
         )
     with docker() as _run:
         _run("sh -ex -c {:s}".format(quote(r"cd sifaru_yusin && java -cp /root/antlr-4.jar:$CLASSPATH org.antlr.v4.Tool -Dlanguage=JavaScript DekuRule.g4")))
-        _run("poetry run npx webpack --config webpack.dev.js")
+        _run("poetry run npx webpack --config webpack.prod.js")
         _run("sh -eux -c {:s}".format(quote(r"mv dist/* docs")))
 
 
@@ -154,7 +154,8 @@ def format():
         _run("npx prettier --write *.js")
         _run("npx prettier --write *.json")
         _run("npx prettier --write *.md")
-        _run("npx prettier --write docs/index.html")
+        _run("npx prettier --write docs/*.css")
+        _run("npx prettier --write docs/*.html")
         _run(
             "sh -eux -c {:s}".format(
                 quote(

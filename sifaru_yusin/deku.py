@@ -249,11 +249,26 @@ DEKU =
       { ref(V 0) 2 | { V - ref(V 0) } 1 } } 2 |
     { C V } 1 |
     { V C } 1 ;
-"""
-
-DEKU_RULE_DEFINITIONS = parse_deku_rule(DEKU_RULES)
+""".strip()
 
 
-def kekure():
-    """Kekure dEku."""
-    return Kekuria(DEKU_RULE_DEFINITIONS).kekure("DEKU")
+class DekuRules(object):
+    """Deku rules."""
+
+    def __init__(self):
+        """Init."""
+        self.parsed_rules = parse_deku_rule(DEKU_RULES)
+        self.rules = DEKU_RULES
+
+    def kekure(self) -> str:
+        """Kekure dEku."""
+        return Kekuria(self.parsed_rules).kekure("DEKU")
+
+    def reset_rules(self) -> None:
+        """Reset dEku rules to default."""
+        self.rules = DEKU_RULES
+
+    def set_rules(self, rules: str) -> None:
+        """Override dEku rules."""
+        self.parsed_rules = parse_deku_rule(rules)
+        self.rules = rules
