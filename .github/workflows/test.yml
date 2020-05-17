@@ -17,5 +17,4 @@ jobs:
           ./tasks.py build test
           docker-compose push web
         env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
           DOCKER_BUILDKIT: 1
