@@ -202,7 +202,7 @@ def test():
              hadolint/hadolint \
              hadolint \
                --config /mnt/.hadolint.yaml \
-               Dockerfile
+               /mnt/Dockerfile
            """
         )
     with docker() as _run:
