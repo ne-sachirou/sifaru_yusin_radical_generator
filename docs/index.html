@@ -28,6 +28,7 @@
       content="白色語語根生成器 (sifarU yUsin ru dEku kekurIa)"
     />
     <title>白色語語根生成器 (sifarU yUsin ru dEku kekurIa)</title>
+    <link rel="stylesheet" href="index.css" />
     <script defer src="main.js"></script>
   </head>
   <body>
@@ -36,8 +37,19 @@
         >Source code on GitHub</a
       >
     </div>
-    <h1>白色語語根生成器 (sifarU yUsin ru dEku kekurIa)</h1>
-    <button id="kekurE_dEku">生成する</button>
-    <ul id="dEkuga"></ul>
+    <div>
+      <input id="dEku_rules__toggle" type="checkbox" />
+      <h1>白色語語根生成器 (sifarU yUsin ru dEku kekurIa)</h1>
+      <button id="kekurE_dEku">生成する</button>
+      <label for="dEku_rules__toggle" id="dEku_rules__toggle_label"
+        >語根の規則</label
+      >
+      <form id="dEku_rules">
+        <textarea id="dEku_rules__textarea"></textarea>
+        <input type="reset" value="規則を規定のものに戻す" />
+        <div id="dEku_rules__error"></div>
+      </form>
+      <ul id="dEkuga"></ul>
+    </div>
   </body>
 </html>

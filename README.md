@@ -13,3 +13,9 @@ https://ne-sachirou.github.io/sifaru_yusin_radical_generator/
 - sifarE 白い
 - sifarU yUsin 白色語
 - yUsin 讀み書き。言語。言葉
+
+```sh
+./tasks.py help
+./tasks.py clean build sh
+./tasks.py start
+```
