@@ -11,7 +11,7 @@ MAX_DEKUGA_LENGTH: int = 20
 state: t.Dict[str, t.Any] = {"dEku_rules": DekuRules()}
 
 
-class CaptureConsoleError:
+class CaptureConsoleError(object):
     """Capture console errors.
 
     This is useful for ill-mannerd modules which dosen't throw errors and only output it to console.
@@ -19,7 +19,6 @@ class CaptureConsoleError:
 
     def __init__(self):
         """Init."""
-        self.element = document.getElementById("dEku_rules__error")
         self.original = console.error
         self.reported_errors = []
 
@@ -30,27 +29,29 @@ class CaptureConsoleError:
     def __exit__(self):
         """Exit from a with."""
         console.error = self.original
-        if len(self.reported_errors) == 0:
-
-            def clear_error(now):
-                self.element.textContent = ""
-
-            window.requestAnimationFrame(clear_error)
+        if len(self.reported_errors) > 0:
+            raise Exception("\n".join(map(str, self.reported_errors)))
 
     def __draw_error(self, error):
-        self.original(error)
-        if len(self.reported_errors) == 0:
-
-            def draw_error(now):
-                self.element.textContent = str(error)
-
-        else:
-
-            def draw_error(now):
-                self.element.textContent += "\n{}".format(str(error))
-
         self.reported_errors.append(error)
-        window.requestAnimationFrame(draw_error)
+
+
+def clear_error():
+    """Clear the error."""
+
+    def __clear_error():
+        document.getElementById("dEku_rules__error").textContent = ""
+
+    window.requestAnimationFrame(__clear_error)
+
+
+def draw_error(error):
+    """Draw the error."""
+
+    def __draw_error():
+        document.getElementById("dEku_rules__error").textContent = str(error)
+
+    window.requestAnimationFrame(__draw_error)
 
 
 def append_new_deku(list_element, new_item_element):
@@ -69,8 +70,12 @@ def on_change_deku_rules_textarea(event):
     deku_rules_str = document.getElementById("dEku_rules__textarea").value
     deku_rules: DekuRules = state["dEku_rules"]
     if deku_rules.rules != deku_rules_str:
-        with CaptureConsoleError():
-            deku_rules.set_rules(deku_rules_str)
+        try:
+            with CaptureConsoleError():
+                deku_rules.set_rules(deku_rules_str)
+            clear_error()
+        except Exception as error:
+            draw_error(error)
 
 
 def on_click_kekure_deku(event):
@@ -78,8 +83,12 @@ def on_click_kekure_deku(event):
     deku_rules_str = document.getElementById("dEku_rules__textarea").value
     deku_rules: DekuRules = state["dEku_rules"]
     if deku_rules.rules != deku_rules_str:
-        with CaptureConsoleError():
-            deku_rules.set_rules(deku_rules_str)
+        try:
+            with CaptureConsoleError():
+                deku_rules.set_rules(deku_rules_str)
+            clear_error()
+        except Exception as error:
+            draw_error(error)
     new_item_element = document.createElement("li")
     new_item_element.textContent = deku_rules.kekure()
     list_element = document.getElementById("dEkuga")

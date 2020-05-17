@@ -270,5 +270,6 @@ class DekuRules(object):
 
     def set_rules(self, rules: str) -> None:
         """Override dEku rules."""
-        self.parsed_rules = parse_deku_rule(rules)
+        parsed_rules = parse_deku_rule(rules)
+        self.parsed_rules = parsed_rules
         self.rules = rules
