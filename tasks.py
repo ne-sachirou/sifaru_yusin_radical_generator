@@ -126,7 +126,7 @@ def build():
             """
         )
         run(
-            f"{docker_compose_exe()} run --rm web-src /docker-entrypoint.d/precopy_appsync.sh"
+            f"{docker_compose_exe()} run --rm web-src bash -eux /docker-entrypoint.d/precopy_appsync.sh"
         )
     with docker() as _run:
         _run("sh -ex -c {:s}".format(quote(r"cd sifaru_yusin && java -cp /root/antlr-4.jar:$CLASSPATH org.antlr.v4.Tool -Dlanguage=JavaScript DekuRule.g4")))
