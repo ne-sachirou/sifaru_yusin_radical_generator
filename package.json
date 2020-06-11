@@ -22,7 +22,7 @@
   "homepage": "https://github.com/ne-sachirou/sifaru_yusin_radical_generator#readme",
   "devDependencies": {
     "antlr4": "^4.8.0",
-    "npm-check-updates": "^7.0.0",
+    "npm-check-updates": "^7.0.1",
     "prettier": "^2.0.5",
     "transcrypt-loader": "^1.0.2",
     "webpack": "^4.43.0",
