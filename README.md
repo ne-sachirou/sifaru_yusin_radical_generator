@@ -1,3 +1,5 @@
+![test](https://github.com/ne-sachirou/sifaru_yusin_radical_generator/workflows/test/badge.svg)
+
 # 白色語語根生成器 (sifarU yUsin ru dEku kekurIa)
 
 https://ne-sachirou.github.io/sifaru_yusin_radical_generator/
