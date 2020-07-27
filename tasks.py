@@ -109,7 +109,7 @@ def within_docker() -> bool:
 def within_wsl() -> bool:
     """Detect I'm in a WSL or not."""
     uname = platform.uname()
-    return uname[0] == "Linux" and "Microsoft" in uname[2]
+    return uname[0] == "Linux" and ("Microsoft" in uname[2]) or ("microsoft" in uname[2])
 
 
 @task

@@ -23,10 +23,10 @@ __pragma__(  # noqa: F821
     """,
 )
 
+antlr4: t.Any = 0  # __:skip
 DekuRuleLexer: t.Any = 0  # __:skip
 DekuRuleListener: t.Any = 0  # __:skip
 DekuRuleParser: t.Any = 0  # __:skip
-antlr4: t.Any = 0  # __:skip
 
 
 class Visitor:
