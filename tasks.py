@@ -122,7 +122,6 @@ def build():
             {docker_compose_exe()} build \
               --build-arg BUILDKIT_INLINE_CACHE=1 \
               --force-rm \
-              --parallel \
               --pull
             """
         )

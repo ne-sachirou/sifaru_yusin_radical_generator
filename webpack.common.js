@@ -1,5 +1,7 @@
 "use static";
 
+const webpack = require("webpack");
+
 module.exports = {
   entry: "./main.py",
   module: {
@@ -11,6 +13,11 @@ module.exports = {
       },
     ],
   },
-  node: { module: "empty", net: "empty", fs: "empty" },
+  plugins: [
+    new webpack.IgnorePlugin({
+      contextRegExp: /./,
+      resourceRegExp: /^fs$/,
+    }),
+  ],
   target: "web",
 };
