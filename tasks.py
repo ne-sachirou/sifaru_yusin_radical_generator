@@ -131,7 +131,6 @@ def build():
     with docker() as _run:
         _run("sh -ex -c {:s}".format(quote(r"cd sifaru_yusin && java -cp /root/antlr-4.jar:$CLASSPATH org.antlr.v4.Tool -Dlanguage=JavaScript DekuRule.g4")))
         _run("poetry run npx webpack --config webpack.prod.js")
-        _run("sh -eux -c {:s}".format(quote(r"mv dist/* docs")))
 
 
 @task
@@ -142,7 +141,7 @@ def clean():
         shutil.rmtree("node_modules", ignore_errors=True)
         run("find . -name '.unison.*' -exec rm -vrf {} +;")
     shutil.rmtree("__target__", ignore_errors=True)
-    run("rm -fv sifaru_yusin/DekuRule*.js sifaru_yusin/*.interp sifaru_yusin/*.tokens")
+    run("rm -fv docs/main.js* sifaru_yusin/DekuRule*.js sifaru_yusin/*.interp sifaru_yusin/*.tokens")
 
 
 @task

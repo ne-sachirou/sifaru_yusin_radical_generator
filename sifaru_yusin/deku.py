@@ -17,9 +17,9 @@ __pragma__(  # noqa: F821
     "{}",
     """
     const antlr4 = require("antlr4");
-    const { DekuRuleLexer } = require("../sifaru_yusin/DekuRuleLexer");
-    const { DekuRuleListener } = require("../sifaru_yusin/DekuRuleListener");
-    const { DekuRuleParser } = require("../sifaru_yusin/DekuRuleParser");
+    const DekuRuleLexer = require("../sifaru_yusin/DekuRuleLexer").default;
+    const DekuRuleListener = require("../sifaru_yusin/DekuRuleListener").default;
+    const DekuRuleParser = require("../sifaru_yusin/DekuRuleParser").default;
     """,
 )
 
