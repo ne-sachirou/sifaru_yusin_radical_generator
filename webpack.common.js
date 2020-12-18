@@ -1,23 +1,44 @@
 "use static";
 
-const webpack = require("webpack");
-
 module.exports = {
-  entry: "./main.py",
+  entry: {
+    main: "./main.py",
+  },
   module: {
     rules: [
       {
+        exclude: /node_modules/,
+        test: /\.m?js$/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              plugins: ["@babel/plugin-proposal-class-properties"],
+              presets: ["@babel/preset-env"],
+            },
+          },
+        ],
+      },
+      {
         test: /\.py$/,
-        loader: "transcrypt-loader",
-        options: {},
+        use: [
+          {
+            loader: "transcrypt-loader",
+            options: {},
+          },
+        ],
       },
     ],
   },
-  plugins: [
-    new webpack.IgnorePlugin({
-      contextRegExp: /./,
-      resourceRegExp: /^fs$/,
-    }),
-  ],
+  output: {
+    filename: "[name].js",
+    path: `${__dirname}/docs`,
+  },
+  plugins: [],
+  resolve: {
+    alias: {
+      fs: `${__dirname}/fs`,
+    },
+  },
   target: "web",
 };

@@ -26,7 +26,7 @@ RUN apk add --no-cache -t .build-deps \
     rsync \
     the_silver_searcher \
  && curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python \
- && curl -sSL https://www.antlr.org/download/antlr-4.8-complete.jar > /root/antlr-4.jar \
+ && curl -sSL https://www.antlr.org/download/antlr-4.9-complete.jar > /root/antlr-4.jar \
  && apk del --purge .build-deps \
  && rm -rf /var/cache/apk/*
 
