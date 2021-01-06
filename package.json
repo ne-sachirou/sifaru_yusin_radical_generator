@@ -24,7 +24,7 @@
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
-    "antlr4": "^4.9.0",
+    "antlr4": "^4.9.1",
     "babel-loader": "^8.2.2",
     "npm-check-updates": "^10.2.5",
     "prettier": "^2.2.1",
