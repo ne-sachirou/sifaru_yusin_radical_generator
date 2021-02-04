@@ -21,16 +21,16 @@
   },
   "homepage": "https://github.com/ne-sachirou/sifaru_yusin_radical_generator#readme",
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/preset-env": "^7.12.11",
+    "@babel/core": "^7.12.13",
+    "@babel/plugin-proposal-class-properties": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
     "antlr4": "^4.9.1",
     "babel-loader": "^8.2.2",
-    "npm-check-updates": "^10.2.5",
+    "npm-check-updates": "^11.1.1",
     "prettier": "^2.2.1",
     "transcrypt-loader": "^1.0.2",
-    "webpack": "^5.15.0",
-    "webpack-cli": "^4.3.1",
+    "webpack": "^5.20.1",
+    "webpack-cli": "^4.5.0",
     "webpack-merge": "^5.7.3"
   },
   "browser": {
