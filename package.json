@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/ne-sachirou/sifaru_yusin_radical_generator#readme",
   "devDependencies": {
-    "@babel/core": "^7.12.13",
+    "@babel/core": "^7.13.8",
     "@babel/plugin-proposal-class-properties": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
     "antlr4": "^4.9.1",
